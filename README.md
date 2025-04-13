@@ -15,7 +15,7 @@ This project was developed as part of my academic research paper titled:
 
 > **"Anti-Swing Control using GA-Based LQR Controller for a Double Pendulum Gantry Crane with Load Hoisting and Lowering"**
 
-The paper presents a novel approach that utilizes a **GA-tuned LQR controller** to handle the nonlinear dynamics of a gantry crane system under various mass and length configurations. The focus is on enhancing control robustness while reducing angular swing and trajectory error.
+The paper presents a creative approach that utilizes a **GA-tuned LQR controller** to handle the nonlinear dynamics of a gantry crane system under various mass and length configurations. The focus is on enhancing control robustness while reducing angular swing and trajectory error.
 
 📌 _If you use this work in research, please cite the title above or contact me for citation details._
 
