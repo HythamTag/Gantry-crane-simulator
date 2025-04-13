@@ -3,114 +3,112 @@
 
 🎯 **Anti-Swing Control using GA-Based LQR Controller for a Double Pendulum Gantry Crane with Load Hoisting and Lowering**
 
-This repository hosts the simulation of a **double pendulum gantry crane system** that incorporates **hoisting/lowering control** and implements an **LQR controller** optimized via **Genetic Algorithms (GA)**. The system is modeled and tested in simulation with the objective of minimizing payload swing during dynamic movements.
+This repository contains the **academic research simulation** of a **double pendulum gantry crane system** equipped with **hoisting and lowering control**, utilizing a **Linear Quadratic Regulator (LQR)** optimized by **Genetic Algorithms (GA)**. The aim is to minimize payload swing and enhance control performance.
 
-> ⚠️ This is a **simulation-only project** and has not yet been implemented physically.
+> 🚧 **This work is part of an ongoing research paper** and is currently **not released as open source**. Please refrain from unauthorized use.
 
 ---
 
 ## 📄 Abstract & Research Context
 
-This project was developed as part of my academic research paper titled:
+Developed for my graduate research paper:
 
 > **"Anti-Swing Control using GA-Based LQR Controller for a Double Pendulum Gantry Crane with Load Hoisting and Lowering"**
 
-The paper presents a creative approach that utilizes a **GA-tuned LQR controller** to handle the nonlinear dynamics of a gantry crane system under various mass and length configurations. The focus is on enhancing control robustness while reducing angular swing and trajectory error.
+This project explores robust anti-swing control of an underactuated gantry crane system. By leveraging **Genetic Algorithm optimization**, it adapts LQR gains for varying crane configurations, delivering improved swing suppression and energy-efficient motion during dynamic load handling.
 
-📌 _If you use this work in research, please cite the title above or contact me for citation details._
-
----
-
-## 🧠 Project Goals
-
-- ✅ Suppress swing angles in both pendulums during motion
-- ✅ Implement optimal control using LQR + Genetic Algorithm tuning
-- ✅ Handle dynamic load hoisting and lowering
-- ✅ Visualize and evaluate control performance via simulation plots
+📌 _This simulation is intended strictly for academic evaluation and peer review._
 
 ---
 
-## 🛠️ Technologies Used
+## 🎯 Objectives
 
-- **Python**
-- **LQR (Linear Quadratic Regulator)**
-- **Genetic Algorithm Optimization**
-- **Custom Crane Dynamics Model**
-- Plotting & evaluation using **Matplotlib**, **NumPy**, **Pandas**
+- 🔄 Minimize swing of both pendulums under trajectory motion
+- 🧠 Optimize LQR gains via GA for robust control
+- 📉 Maintain smooth load hoisting and lowering
+- 📊 Produce plots for performance analysis and comparison
+
+---
+
+## 🧰 Technologies
+
+- `Python` for simulation scripting
+- `NumPy`, `Pandas` for computation and data handling
+- `Matplotlib` for visualization
+- Custom implementations for:
+  - Crane dynamics modeling
+  - Genetic Algorithm
+  - LQR formulation
 
 ---
 
 ## 📁 Project Structure
 
 ```bash
-GantryCraneProject
-├── config/                    # YAML config files for simulations
-├── scripts/                   # Optimization & simulation entry points
-├── src/                       # Main source code (controllers, models, utils)
-│   ├── controllers/           # LQR & adaptive control methods
-│   ├── core/                  # Crane physics and dynamics
-│   ├── optimization/          # GA, PSO, and optimizer base classes
-│   ├── simulation/            # Crane simulation logic
-│   ├── utils/                 # LQR handler, helper functions
-│   └── visualization/         # Plot generation and exports
-├── simulation_plots/          # Output plots for trajectory, energy, jerk, etc.
-├── tests/                     # Testing scripts and trajectory demos
-├── Notes.txt                  # Design notes
+GantryCraneSimulation/
+├── config/                    # Simulation configuration files (YAML)
+├── scripts/                   # Execution scripts for simulation and GA tuning
+├── src/                       # Modular code base
+│   ├── controllers/           # LQR controllers and tuning logic
+│   ├── core/                  # Crane dynamics models
+│   ├── optimization/          # Genetic Algorithm implementation
+│   ├── simulation/            # Integration of models with control strategies
+│   ├── utils/                 # Helper methods and LQR calculation utilities
+│   └── visualization/         # Result plotting and figure generation
+├── simulation_plots/          # Output figures: trajectory, swing, energy, etc.
+├── tests/                     # Unit tests and demonstration simulations
+├── Notes.txt                  # Experimentation notes
 └── README.md                  # This file
 ```
 
 ---
 
-## 🚀 How to Run
+## ▶️ How to Run
 
-1. Clone the repo and install dependencies:
+1. Install dependencies:
     ```bash
-    git clone https://github.com/HythamTag/gantry-crane-lqr-ga.git
-    cd gantry-crane-lqr-ga
     pip install -r requirements.txt
     ```
 
-2. Run an optimization:
+2. Run the LQR-GA optimization:
     ```bash
     python scripts/run_optimization.py
     ```
 
-3. Simulate a trajectory:
+3. Simulate system response:
     ```bash
     python scripts/run_simulation.py
     ```
 
-4. View plots in the `simulation_plots/` folder.
+4. View output plots in the `simulation_plots/` directory.
 
 ---
 
-## 📊 Sample Output
+## 📈 Sample Outputs
 
-Simulation generates plots including:
-- 🌀 Swing angle reduction
-- 🧲 Control inputs
-- 📈 Energy consumption
-- 🛤️ Payload trajectory
-
----
-
-## 🧹 Refactoring Notes
-
-This codebase is functional but would benefit from:
-- Modular configuration files
-- Improved variable naming and cleanup
-- Refactoring for better unit testing and real-time plotting support
+The simulation generates the following:
+- 📉 Angular swing suppression
+- 🚀 Smooth trajectory tracking
+- ⚖️ Energy-efficient control signals
+- 📊 GA evolution curves
 
 ---
 
-## 📬 Contact
+## 📢 Disclaimer
 
-For questions, suggestions, or collaboration, feel free to reach out to:
+This repository is part of a **research paper** in progress and the code is intended for demonstration and documentation purposes only.
+
+📎 _Please do not redistribute or reuse the code without explicit permission._
+
+---
+
+## 👨‍🔬 Author & Contact
 
 **Hytham Tag**  
-📧 [haitham.adel@bhit.bu.edu.eg]  
+Assistant Lecturer – Mechatronics/Robotics Engineering  
+Benha University  
+📧 haitham.adel@bhit.bu.edu.eg
 
 ---
 
-> Made with 💡 by Hytham Tag — Mechatronics Engineer & Robotics Researcher  
-> 🧪 "Turning control theory into motion precision"
+> 🧪 _Research-driven engineering for smarter motion control._
