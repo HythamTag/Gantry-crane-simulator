@@ -156,10 +156,15 @@ def regularize_matrix(M):
     Returns:
         Regularized matrix
     """
+    if not np.all(np.isfinite(M)):
+        # Replace NaNs/Infs with small values
+        M = np.where(np.isfinite(M), M, 1e-10)
+
     condition_number = np.linalg.cond(M)
-    if condition_number > 1e10:
+    if condition_number > 1e8:
         reg_factor = min(20, max(0, np.log10(condition_number) - 10))
         M += np.eye(M.shape[0], dtype=M.dtype) * (10 ** reg_factor)
+
     return M
 
 
@@ -275,6 +280,11 @@ def compute_state_derivative(state, control_inputs, g, m_t, m_h, m_l, l_2,
         Derivative of state vector
     """
     q, q_dot = state[:4], state[4:8]
+
+    # Check for invalid inputs early
+    if not np.all(np.isfinite(q)) or not np.all(np.isfinite(q_dot)):
+        # Return zeros or previous state to avoid propagating NaNs
+        return np.zeros(8, dtype=state.dtype)
 
     M = compute_mass_matrix(q, m_t, m_h, m_l, l_2)
     M += np.eye(M.shape[0]) * 1e-6  # Add regularization
