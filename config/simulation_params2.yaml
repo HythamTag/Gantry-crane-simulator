@@ -1,0 +1,195 @@
+
+# Crane System
+crane_system:
+  initial_conditions:
+    trolley_position: 0.0
+    rope_length: 0.2
+    hook_angle: 0.0
+    load_angle: 0.0
+  target_positions:
+    trolley: &trolley_position 2.0
+    rope: 1
+    target_tolerance: 0.01
+  physical_params:
+    masses:
+      trolley: 10.0
+      hook:  2.0
+      load:  6.0
+    gravity:  9.81
+    hook_to_load_distance: 0.2
+    damping:
+      trolley: 0.3
+      rope: 6.5
+      hook: 0.06
+      load: 0.06
+    friction:
+      fr0x: 4.4
+      epsx: 0.01
+      krx: -0.5
+  constraints:
+    apply_optimization_constraints: 1
+    apply_physical_constraints: 0
+    trolley:
+      min: -0.1
+      max: 2.05
+    rope:
+      min: 0.1
+      max: 1.01
+
+#########################################################################
+#########################################################################
+#########################################################################
+
+
+# Simulation
+simulation:
+  controller_type: LQR  # DPUG, LQR, H_infinity, Amp, ECA
+  duration: 20.0
+  time_step: 0.01
+  method: 'iterative'
+  integration_method: 'rk4'  # rk4 is bugged for DPUG
+  print_detailed_data: true
+
+  #########################################################################
+  #########################################################################
+  #########################################################################
+
+
+# Controller
+controller:
+  use_neural_network: 0
+  known_load: 1
+  is_anti_windup: 0
+  use_integral: 0
+  use_derivative: 0
+  gamma: 1.0  # Initial H-infinity performance level
+  enable_trajectory_velocity_tracking: 0
+
+  use_radial: 0  # Enable radial basis network
+  radial_params:
+    n_centers: 30
+    variance: 0.1
+    eta: 500
+    alpha: 0.9
+  weights:
+
+
+    state : [800000000, 10000000, 1300, 1300000, 2000000, 100000, 32400, 32400]
+    control : [1, 1]
+
+
+#    ## Load 1
+#    state: [ 5472783065847.39,942586940157.4229,9977083422097.729,121029278909.9544,5630111391580.881,8334453083374.6455,52806850518.003586,30054510432.480186 ]
+#    control: [ 138260.07410757671,52083999.28931154 ]
+
+    ## Load 3
+#    state: [ 8504565299190.277,8242987782043.382,1025945845374.9528,8823742848318.602,418253105607.93207,94806265516.67049,1515995866338.2644,4899062411843.059 ]
+#    control: [ 35967019.01176806,17550972.79463062 ]
+
+#    ## Load 6
+#    state: [ 9966841667470.15,8293428074324.813,91464222145.884,30925304702.402832,211556569329.69955,44800871872.47915,1076312899546.4113,9773066901660.719 ]
+#    control: [ 1991536.5092856719,517385.0036146228 ]
+
+    integral: [40.70327514, 0]
+
+    derivative: [1000, 0.1]
+    change_in_control: [0, 0]
+  recalculation_threshold: 0.02
+  control_limits:
+    min: [-10000, -150]
+    max: [10000, 150]
+  rope_acceleration_limit: 9.81
+
+#########################################################################
+#########################################################################
+#########################################################################
+
+# Visualizer
+visualizer:
+  all_plots_one_window: 0
+  save_plots: 0
+  render: 0
+  limits:
+    x: 5
+    y: 5
+
+#########################################################################
+#########################################################################
+#########################################################################
+
+# Trajectory
+trajectory:
+  t_x: *trolley_position
+  k_v: 0.9
+  k_a: 0.5
+  epsilon: 3
+
+#########################################################################
+#########################################################################
+#########################################################################
+
+# Logging and Saving
+logging:
+  log_level: INFO
+  log_file: "optimization_log.txt"
+
+#########################################################################
+#########################################################################
+#########################################################################
+
+saving:
+  save_best_solution: true
+  plot_progress: true
+
+#########################################################################
+#########################################################################
+#########################################################################
+
+# Genetic Algorithm Parameters
+genetic_algorithm:
+  num_generations: 1000
+  num_parents_mating: 4
+  sol_per_pop: 12
+  num_genes: 10  # 8 for Q_state, 2 for Q_int, 2 for R
+  mutation:
+    probability: 0.3
+    keep_parents: 1
+
+  # Solution Space Parameters
+  solution_space:
+    Q_range:
+      low: 0.0001
+      high: 10000000000000
+    R_range:
+      low: 0.0000001
+      high: 100000000
+    I_range:
+      low: 0.0001
+      high: 10000
+
+  # Fitness Function
+  fitness_function:
+    weights:
+      w1: 15    # Weight for ISE_x
+      w2: 3    # Weight for ISE_l
+      w3: 0   # Weight for ISE_theta1 and MSE_theta1
+      w4: 600   # Weight for ISE_theta2 and MSE_theta2
+
+      w5: 5    # Weight for acceleration L1
+
+      w6: 5    # Weight for acceleration theta2
+
+      w7: 1   # Weight for time_to_target
+
+#      w7: 10    # Weight for jerk X
+
+#      w8: 15   # Weight for jerk L1
+
+#      w9: 0   # Weight for var acceleration theta2
+
+#      w10: .01    # Weight for var acceleration L1
+
+#      w11: .01    # Weight for var jerk X
+
+#      w12: .01   # Weight for var jerk L1
+

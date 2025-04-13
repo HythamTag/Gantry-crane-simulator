@@ -1,0 +1,8 @@
+i must add this to make simulation work : # Q_reg = self.Q_aug + 1e-6 * np.eye(self.Q_aug.shape[0]) to prevent zero Q and R values
+
+# fix solve_ivp bu returning the integral and inputs with the states to avoid appending :
+    def _system_dynamics(self, t: float, state: np.ndarray) -> np.ndarray:
+        control_inputs = self.controller.compute_control_inputs(t, state[:8])
+        self.control_inputs_values.append(control_inputs)
+        self.integral_error_values.append(np.array(self.controller.integral_error))
+        return self.model.compute_state_derivative(t, state[:8], control_inputs)
